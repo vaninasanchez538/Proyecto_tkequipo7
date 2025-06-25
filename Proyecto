@@ -121,8 +121,12 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
             except ValueError:
                 messagebox.showerror("Error", "Seleccione una fecha válida.")
                 return
-            
-            fecha_hora = datetime.combine(fecha_sel, hora_sel)
+                                                                            
+            fecha_hora = datetime.combine(fecha_sel, hora_sel) # Validacion de duplicado de turnos
+            for t in usuario_actual.turnos:
+                if t.fecha_hora == fecha_hora and t.servicio == servicio:
+                 messagebox.showerror("Turno existente", "Ya tenés un turno reservado en esa fecha y hora.")
+                return
                 
             if fecha_hora < datetime.now(): # Validaciones de lógica.
                     messagebox.showerror("Error", "La fecha y hora debe ser futuras.") # Muestra mensaje de error si se ingresa una fecha pasada.
