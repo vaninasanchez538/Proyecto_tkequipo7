@@ -6,8 +6,9 @@ from datetime import datetime, time, timedelta  # Se usa para manejar fechas y h
 # MODELOS - Clases base del sistema
 
 class Usuario:
-    def __init__(self, nombre, email):
+    def __init__(self, nombre, apellido, email):
         self.nombre = nombre
+        self.apellido = apellido
         self.email = email
         self.turnos = []
 
@@ -23,13 +24,14 @@ class Servicio:
 
 
 class Turno:
-    def __init__(self, fecha_hora, servicio):
+    def __init__(self, fecha_hora, servicio, cliente_nombre ):
         self.fecha_hora = fecha_hora
         self.servicio = servicio
         self.estado = "Reservado"
+        self.cliente_nombre = cliente_nombre
 
     def __str__(self):
-        return f"{self.servicio.nombre} | {self.fecha_hora.strftime('%d/%m/%Y %H:%M')} | {self.estado}"
+        return f"{self.cliente_nombre} | {self.servicio.nombre} | {self.fecha_hora.strftime('%d/%m/%Y %H:%M')} | {self.estado}"
 
 
 # DATOS -> Lista de servicios 
@@ -43,7 +45,7 @@ servicios = [
     Servicio(6, "Odontología", 60)
 ]
 
-usuario_actual = Usuario("Equipo 7", "equipo7@mail.com")  # Usuario ficticio "logueado".
+usuario_actual = Usuario("Equipo", "7", "equipo7@mail.com")  # Usuario ficticio "logueado".
 
 # INTERFAZ GRÁFICA CON TKINTER
 
@@ -51,6 +53,7 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
     def __init__(self, root):  # Constructor que recibe la ventana raíz (root) y configura la interfaz.
         self.root = root
         self.root.title("Agenda de Turnos")
+        self.root.geometry("280x320")
 
         self.frame_menu = tk.Frame(root, padx=20, pady=20) # Frame -> Contenedor para agrupar widgets.
         self.frame_menu.pack() # pack() -> Método de posicionamiento automático (uno debajo del otro).
@@ -63,7 +66,7 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
         tk.Button(self.frame_menu, text="Servicios Disponibles", width=25,bg= "lightblue1", command=self.mostrar_servicios).pack(pady=5) # Muestra una lista.
         tk.Button(self.frame_menu, text="Reservar Turno", width=25,bg= "lightblue1", command=self.abrir_reserva).pack(pady=5)    # Abre un formulario.
         tk.Button(self.frame_menu, text="Ver Mis Turnos", width=25,bg= "lightblue1", command=self.mostrar_turnos).pack(pady=5)   # Muestra los turnos reservados.
-        tk.Button(self.frame_menu, text="Cancelar Turno", width=25,bg= "lightblue1", command=self.cancelar_turno).pack(pady=5)# Cancelación de turnos.
+        tk.Button(self.frame_menu, text="Cancelar Turno", width=25,bg= "lightblue1", command=self.cancelar_turno).pack(pady=5)   # Cancelación de turnos.
         tk.Button(self.frame_menu, text="Salir", width=25,bg= "lightblue1", command=root.quit).pack(pady=5)                      # Cierra la app.
         tk.Button(self.frame_menu, text="Créditos", width=15,bg= "lightblue1", command=self.mostrar_creditos).pack(pady=5)       # Boton de Credito, Integrantes Grupo 7.
 
@@ -78,6 +81,7 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
     def abrir_reserva(self): 
         reserva_win = tk.Toplevel(self.root)
         reserva_win.title("Reservar Turno")
+        reserva_win.geometry ("250x250")
 
         tk.Label(reserva_win, text="Seleccione servicio:").pack(pady=(10,0)) # Selección del servicio
         servicio_var = tk.StringVar() # StringVar -> Variable que captura texto en interfaces.
@@ -122,8 +126,8 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
                 messagebox.showerror("Error", "Seleccione una fecha válida.")
                 return
                                                                             
-            fecha_hora = datetime.combine(fecha_sel, hora_sel) # Validacion de duplicado de turnos
-            for t in usuario_actual.turnos:
+            fecha_hora = datetime.combine(fecha_sel, hora_sel) 
+            for t in usuario_actual.turnos:                         # Validacion de duplicado de turnos
                 if t.fecha_hora == fecha_hora and t.servicio == servicio:
                  messagebox.showerror("Turno existente", "Ya tenés un turno reservado en esa fecha y hora.")
                 return
@@ -134,16 +138,14 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
             if fecha_hora.weekday() == 6:
                     messagebox.showerror("Error", "Los días domingos no hay turnos disponibles.")
                     return
-
+            
             nombre_apellido = simpledialog.askstring("Datos del cliente", "Ingrese su nombre y apellido:")
             if not nombre_apellido or not nombre_apellido.strip():
                 messagebox.showwarning("Falta información", "Debe ingresar su nombre y apellido.")
                 return
-
-            turno = Turno(fecha_hora, servicio) # Creación y guardado del turno.
-            turno.cliente_nombre = nombre_apellido.strip()
-
             
+            turno = Turno(fecha_hora, servicio, nombre_apellido.strip()) # Creación y guardado del turno.
+   
             usuario_actual.reservar_turno(turno)
             messagebox.showinfo("Éxito", "Turno reservado.")
             reserva_win.destroy()
@@ -159,7 +161,7 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
             return
 
         for t in usuario_actual.turnos:
-            tk.Label(top, text=str(t)).pack(padx=10, pady=5)
+            tk.Label(top, text=str(t)).pack(padx=10, pady=5) 
     
     def cancelar_turno(self):
         if not usuario_actual.turnos:
@@ -192,8 +194,7 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
     def mostrar_creditos(self):
         top = tk.Toplevel(self.root)
         top.title("Créditos")
-        top.geometry("300x250")
-        top.configure(bg="lightpink")
+        top.geometry("300x230")
         for persona in creditos:
             tk.Label(top, text=persona).pack(pady=3)
 creditos = [
