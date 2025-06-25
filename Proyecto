@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox, ttk             # Módulos para mostrar cuadros de diálogos y widgets.
+from tkinter import messagebox, ttk , simpledialog            # Módulos para mostrar cuadros de diálogos y widgets.
 from tkcalendar import DateEntry                # Calendario desplegable.
 from datetime import datetime, time, timedelta  # Se usa para manejar fechas y horas. 
 
@@ -130,8 +130,16 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
             if fecha_hora.weekday() == 6:
                     messagebox.showerror("Error", "Los días domingos no hay turnos disponibles.")
                     return
-                
+
+            nombre_apellido = simpledialog.askstring("Datos del cliente", "Ingrese su nombre y apellido:")
+            if not nombre_apellido or not nombre_apellido.strip():
+                messagebox.showwarning("Falta información", "Debe ingresar su nombre y apellido.")
+                return
+
             turno = Turno(fecha_hora, servicio) # Creación y guardado del turno.
+            turno.cliente_nombre = nombre_apellido.strip()
+
+            
             usuario_actual.reservar_turno(turno)
             messagebox.showinfo("Éxito", "Turno reservado.")
             reserva_win.destroy()
