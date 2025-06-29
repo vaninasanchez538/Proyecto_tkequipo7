@@ -198,21 +198,14 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
         for persona in creditos:
             tk.Label(top, text=persona).pack(pady=3)
 creditos = [
-        "Gabriel Leonardo Salas",
-        "Pablo Antúnez",
-        "Diego Gabriel Avanzatti",
-        "Vanina Sanchez",
-        "Eduardo Ezequiel Criscueli",
-        "Eliana Viton",
-        "Fernández Ezequiel Jesús",
-        "Fernandez Edgardo David"
+        "Antúnez, Pablo",
+        "Avanzatti, Diego Gabriel",
+        "Criscueli, Eduardo Ezequiel",
+        "Fernández, Ezequiel Jesús",
+        "Salas, Gabriel Leonardo",
+        "Sánchez, Vanina",
+        "Viton, Eliana"
     ]
-    
-
-
-
-       
-
 
 # EJECUCIÓN DEL PROGRAMA
 
