@@ -54,9 +54,12 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
         self.root = root
         self.root.title("Agenda de Turnos")
         self.root.geometry("280x320")
+        self.root.minsize(280, 320)
 
         self.frame_menu = tk.Frame(root, padx=20, pady=20) # Frame -> Contenedor para agrupar widgets.
         self.frame_menu.pack() # pack() -> Método de posicionamiento automático (uno debajo del otro).
+        self.label_frame = tk.Frame(root, width=1) #Contenedor de los creditos
+        self.label_frame.pack(side='bottom', ipady=8)
 
         tk.Label(self.frame_menu, text=f"Bienvenid@ {usuario_actual.nombre}", font=("Roboto", 16)).pack(pady=10) # Mensaje de bienvenida.
         
@@ -68,7 +71,7 @@ class AppTurnos: # Clase gestora de la ventana principal y sus interacciones.
         tk.Button(self.frame_menu, text="Ver Mis Turnos", width=25,bg= "lightblue1", command=self.mostrar_turnos).pack(pady=5)   # Muestra los turnos reservados.
         tk.Button(self.frame_menu, text="Cancelar Turno", width=25,bg= "lightblue1", command=self.cancelar_turno).pack(pady=5)   # Cancelación de turnos.
         tk.Button(self.frame_menu, text="Salir", width=25,bg= "lightblue1", command=root.quit).pack(pady=5)                      # Cierra la app.
-        tk.Button(self.frame_menu, text="Créditos", width=15,bg= "lightblue1", command=self.mostrar_creditos).pack(pady=5)       # Boton de Credito, Integrantes Grupo 7.
+        tk.Button(self.label_frame, text="Créditos", width=15,bg= "lightblue1", command=self.mostrar_creditos).pack(pady=5)       # Boton de Credito, Integrantes Grupo 7.
 
     # MÉTODOS DE LA INTERFAZ
 
