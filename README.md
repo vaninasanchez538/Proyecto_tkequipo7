@@ -38,12 +38,12 @@ Funcionalidades disponibles:
 
 mostrar_servicios() -> Muestra los servicios disponibles en una ventana secundaria.
 
-abrir_reserva()     -> Abre un formulario para reservar turnos. Permite: -> Elegir un servicio (desplegable).
-                                                                         -> Elegir fecha (con calendario).
-                                                                         -> Elegir hora (bloques de 30 minutos entre 8-12 y 14-18).
-                                                                         -> Validar que no haya turnos duplicados ni pasados ni en domingo.
-                                                                         -> Ingresar nombre y apellido para confirmar.
-                                                                         -> Guardar el turno en el usuario.
+abrir_reserva()     -> Abre un formulario para reservar turnos. Permite: - Elegir un servicio (desplegable).
+                                                                         - Elegir fecha (con calendario).
+                                                                         - Elegir hora (bloques de 30 minutos entre 8-12 y 14-18).
+                                                                         - Validar que no haya turnos duplicados ni pasados ni en domingo.
+                                                                         - Ingresar nombre y apellido para confirmar.
+                                                                         - Guardar el turno en el usuario.
 
 mostrar_turnos()   -> Lista todos los turnos que el usuario tiene agendados.
 
