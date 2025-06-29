@@ -13,8 +13,7 @@ Tiene las siguientes funciones disponibiles:
 - Cancelar un turno previamente agendado.
 - Ver los créditos del equipo de desarrollo.
 
-Estructura y Lógica del Código
-El código está dividido en tres partes principales: modelos, datos y usuario, e interfaz gráfica.
+Estructura y Lógica del Código -> El código está dividido en tres partes principales: modelos, datos y usuario, e interfaz gráfica.
 
 1. Modelos (Clases principales)
 
